@@ -3,7 +3,7 @@
 PREFIX	:=/opt/cr
 BINDIR	=${PREFIX}/bin
 
-CC	=ccache gcc -march=i686
+CC	=ccache gcc -mtune=native -std=gnu99
 CFLAGS	=-Os -Wall -Werror -pedantic -pipe -g
 LDFLAGS	=-g
 
