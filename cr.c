@@ -48,6 +48,21 @@ usage(
 }
 
 static	void
+init_default_width(
+	void
+)
+{
+	char const * const	colspec = getenv( "COLUMNS" );
+	if ( colspec )	{
+		char *			eos;
+		unsigned long const	newcol = strtol( colspec, &eos, 10 );
+		if( ! *eos )	{
+			wid = newcol;
+		}
+	}
+}
+
+static	void
 header(
 	void
 )
@@ -86,7 +101,7 @@ process(
 	lineno = 0;
 	while( fgets( buf, sizeof( buf ), fyle ) )	{
 		size_t			needed;
-		
+
 		if( incr && ( (lineno % incr) == 0 ) )	{
 			header();
 		}
@@ -117,6 +132,8 @@ main(
 	if( (bp = strrchr( me, '/' )) != NULL )	{
 		me = bp + 1;
 	}
+	/* Check environment for xterm width				 */
+	init_default_width();
 	/* Process any command line arguments				*/
 	opterr = 0;
 	while( (c = getopt( argc, argv, "hi:nw:" )) != EOF )	{
