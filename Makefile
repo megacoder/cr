@@ -1,7 +1,9 @@
 # vim: ts=8 sw=8
 
-PREFIX	:=/opt/cr
+PREFIX	:=/opt
 BINDIR	=${PREFIX}/bin
+
+INSTALL	=install
 
 CC	=ccache gcc -mtune=native -std=gnu99
 CFLAGS	=-Os -Wall -Werror -pedantic -pipe -g
@@ -16,8 +18,7 @@ distclean clobber:: clean
 	${RM} cr
 
 install:: cr
-	install -d ${BINDIR}
-	install -c -s cr ${BINDIR}/
+	${INSTALL} -D -s cr ${BINDIR}/cr
 
 uninstall::
 	${RM} ${BINDIR}/cr
